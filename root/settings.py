@@ -1,7 +1,8 @@
 import os
-from pathlib import Path
+import sys
 
-BASE_DIR = Path(__file__).resolve().parent.parent
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+sys.path.append(os.path.join(BASE_DIR, 'apps'))
 
 SECRET_KEY = 'django-insecure-_uitkqbw#pvu88tx34lby$cnvvuwcl!o&06izj$f2geo6y2cv9'
 
@@ -18,10 +19,10 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
-    'apps.shared',
-    'apps.payments',
-    'apps.users',
-    'apps.adverts',
+    'shared',
+    'payments',
+    'users',
+    'adverts',
 
     # Third Party
     'rest_framework',
@@ -32,6 +33,7 @@ INSTALLED_APPS = [
 
 
 MIDDLEWARE = [
+    'debug_toolbar.middleware.DebugToolbarMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -64,7 +66,7 @@ WSGI_APPLICATION = 'root.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'NAME': BASE_DIR + 'db.sqlite3',
     }
 }
 

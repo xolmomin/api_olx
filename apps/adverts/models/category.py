@@ -14,12 +14,12 @@ class Category(MPTTModel):
         order_insertion_by = ['name']
 
 
-class Parameter(Model):
-    category = ForeignKey('adverts.Category', C)
-    code = SlugField(max_length=255)
-    label = ''
-    range = BooleanField(default=False)
-    type = ''
-    units = ''
-    validation = ''
-    values = ''
+# class Parameter(Model):
+#     category = ForeignKey('adverts.Category', CASCADE)
+#     code = SlugField(max_length=255)
+#     label = ''
+#     range = BooleanField(default=False)
+#     type = ''
+#     units = ''
+#     validation = ''
+#     values = ''

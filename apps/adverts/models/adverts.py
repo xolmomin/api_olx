@@ -8,7 +8,7 @@ class Advert(Model):
         PENDING = 'pending', 'Kutayotgan'
         UNPAID = 'unpaid', "To'lanmagan"
         INACTIVE = 'inactive', 'Nofaol'
-        CANCEL = 'inactive', 'Rad etilgan'
+        CANCEL = 'cancel', 'Rad etilgan'
 
     title = CharField(max_length=255)
     slug = SlugField(max_length=255, unique=True)
