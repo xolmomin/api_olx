@@ -1,4 +1,4 @@
-from django.db.models import CASCADE, CharField, Model, ForeignKey, SlugField, TextChoices, IntegerField, \
+from django.db.models import CASCADE, CharField, Model, ForeignKey, TextChoices, IntegerField, \
     BooleanField, ImageField
 from mptt.models import MPTTModel, TreeForeignKey
 
@@ -15,27 +15,29 @@ class Category(MPTTModel):
 
     @property
     def parameters(self):
-        return self.parameter_set.all()
+        return self.categoryparam_set.all()
 
 
-class Parameter(Model):
+class CategoryParam(Model):  # TODO: complete
     class Type(TextChoices):
         ENUM = 'enum', 'Enum'
         BOOL = 'bool', 'Bool'
+        DIGIT = 'digit', 'Digit'
         SALARY = 'salary', 'Salary'
+        HIDDEN = 'hidden', 'Hidden'
 
     category = ForeignKey('adverts.Category', CASCADE)
-    code = SlugField(max_length=255)
+    code = CharField(max_length=255)
     label = CharField(max_length=55, blank=True)
     range = BooleanField(default=False)
     type = CharField(max_length=25, choices=Type.choices)
 
     @property
-    def params(self):
-        return self.paramvalue_set.all()
+    def values(self):
+        return self.categoryvalue_set.all()
 
 
-class ParamValue(Model):
-    parameter = ForeignKey('adverts.Parameter', CASCADE)
-    key = CharField(max_length=55)
-    label = CharField(max_length=55)
+class CategoryValue(Model):  # TODO: complete
+    category_param = ForeignKey('adverts.CategoryParam', CASCADE)
+    key = CharField(max_length=255)
+    label = CharField(max_length=255)

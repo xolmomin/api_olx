@@ -1,3 +1,13 @@
 from django.contrib import admin
 
-# Register your models here.
+from adverts.models import Advert, AdvertParam
+
+
+@admin.register(Advert)
+class AdvertModelAdmin(admin.ModelAdmin):
+    pass
+
+
+@admin.register(AdvertParam)
+class AdvertParamModelAdmin(admin.ModelAdmin):
+    pass

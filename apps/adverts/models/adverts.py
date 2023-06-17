@@ -1,5 +1,5 @@
-from django.db.models import CASCADE, CharField, Model, ForeignKey, SlugField, TextField, TextChoices, IntegerField, \
-    BooleanField
+from django.db.models import JSONField, CASCADE, CharField, Model, ForeignKey, SlugField, TextField, TextChoices, IntegerField, \
+    BooleanField, ImageField
 
 
 class Advert(Model):
@@ -20,26 +20,26 @@ class Advert(Model):
     is_auto_reload = BooleanField(default=False)
 
     author_phone = CharField(max_length=25)
+    category = ForeignKey('adverts.Category', CASCADE)
     author = ForeignKey('users.User', CASCADE, 'adverts')
 
+    @property
+    def images(self):
+        return self.advertimage_set.all()
+
+    @property
+    def params(self):
+        return self.advertparam_set.all()
 
 
-
-'''
-
-
-class CurrencyType(TextChoices):
-    USD = 'usd', 'USD'
-    UZS = 'uzs', 'SUM'
-
-class PriceType(TextChoices):
-    CASH = 'cash', 'Narx'
-    EXCHANGE = 'exchange', 'Ayirboshlash'
-    FREE = 'free', 'Tekin'
+class AdvertParam(Model):  # TODO: complete
+    advert = ForeignKey('adverts.Advert', CASCADE)
+    key = CharField(max_length=255)  # CategoryParam dagi code ga teng
+    name = CharField(max_length=55, blank=True)  # CategoryParam dagi label ga teng
+    type = CharField(max_length=255)
+    value = JSONField(default=dict)
 
 
-price = IntegerField(null=True, blank=True)
-price_type = CharField(max_length=10, choices=PriceType.choices)
-currency_type = CharField(max_length=5, choices=CurrencyType.choices)
-
-'''
+class AdvertImage(Model):
+    advert = ForeignKey('adverts.Advert', CASCADE)
+    image = ImageField(upload_to='adverts/')
