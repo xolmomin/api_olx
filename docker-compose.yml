@@ -30,8 +30,7 @@ services:
     volumes:
       - static_volume:/app/static
       - media_volume:/app/media
-      - ./certbot/conf:/etc/letsencrypt
-      - ./certbot/www:/var/www/certbot
+      - letsencrypt:/etc/letsencrypt
     depends_on:
       - web_service
     logging:
@@ -43,11 +42,11 @@ services:
     image: certbot/certbot
     container_name: certbot
     volumes:
-      - ./certbot/conf:/etc/letsencrypt
-      - ./certbot/www:/var/www/certbot
-    command: certonly --webroot -w /var/www/certbot --redirect --force-renewal --email khasanjon@gmail.com -d xolmomin.diordev.me --agree-tos
+      - letsencrypt:/etc/letsencrypt
+    command: certonly --webroot -w /etc/letsencrypt/certbot --redirect --force-renewal --email khasanjon@gmail.com -d xolmomin.diordev.me --agree-tos
 
 volumes:
   postgres_data:
   static_volume:
   media_volume:
+  letsencrypt:
