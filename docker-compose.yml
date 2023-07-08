@@ -23,7 +23,7 @@ services:
       - POSTGRES_DB=p8_db
 
   nginx:
-    build: ./nginx
+    image: nginx:1.21-alpine
     ports:
       - "80:80"
       - "443:443"
@@ -36,7 +36,7 @@ services:
     volumes:
       - static_volume:/app/static
       - media_volume:/app/media
-      - ./nginx/conf/:/etc/nginx/conf.d/:ro
+      - ./nginx/:/etc/nginx/conf.d/:ro
       - ./certbot/www:/var/www/certbot/:ro
       - ./certbot/conf/:/etc/nginx/ssl/:ro
   certbot:
