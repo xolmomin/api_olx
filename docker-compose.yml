@@ -36,14 +36,13 @@ services:
     volumes:
       - static_volume:/app/static
       - media_volume:/app/media
-      - ./certbot/www:/var/www/certbot/:ro
-      - ./certbot/conf/:/etc/nginx/ssl/:ro
-
+      - ./certbot/conf:/etc/letsencrypt
+      - ./certbot/www:/var/www/certbot
   certbot:
     image: certbot/certbot:latest
     volumes:
-      - ./certbot/www/:/var/www/certbot/:rw
-      - ./certbot/conf/:/etc/letsencrypt/:rw
+      - ./certbot/conf:/etc/letsencrypt
+      - ./certbot/www:/var/www/certbot
     command: certonly --webroot -w /var/www/certbot/ --register-unsafely-without-email --dry-run -d xolmomin.diordev.me
 
 volumes:
