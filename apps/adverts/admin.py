@@ -1,6 +1,11 @@
 from django.contrib import admin
 
-from adverts.models import Advert, AdvertParam
+from adverts.models import Advert, AdvertParam, Category
+
+
+@admin.register(Category)
+class CategoryModelAdmin(admin.ModelAdmin):
+    pass
 
 
 @admin.register(Advert)
