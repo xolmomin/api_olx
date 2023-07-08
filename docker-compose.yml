@@ -25,10 +25,11 @@ services:
   nginx:
     build: ./nginx
     ports:
-      - 1337:80
+      - "80:80"
     volumes:
       - static_volume:/app/static
       - media_volume:/app/media
+      - ./nginx:/etc/nginx/conf.d
     depends_on:
       - web_service
 
